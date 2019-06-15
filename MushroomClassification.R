@@ -228,3 +228,4 @@ validation$predicted <- predict(model_rf ,validation)
 confusionMatrix(data = validation$predicted, reference = validation$class , positive = "edible")
 
 #This is a perfect prediction - Accuracy, Sensitivity and Specificity are 1.00.
+

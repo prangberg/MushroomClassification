@@ -1,5 +1,5 @@
 ---
-title: "HarvardX: PH125.9x Professional Certificate in Data Science - Capstone Individual Project"
+title: "HarvardX: PH125.9x Professional Certificate in Data Science - Choose Your Own Project"
 author: "Stefan Prangenberg"
 date: "6/15/2019"
 output: html_document
@@ -8,73 +8,89 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-This dataset includes descriptions of hypothetical samples corresponding to 23 species of gilled mushrooms in the Agaricus and Lepiota Family Mushroom drawn from The Audubon Society Field Guide to North American Mushrooms (1981). 
-Each species is identified as definitely edible, definitely poisonous, or of unknown edibility and not recommended. This latter class was combined with the poisonous one. The Guide clearly states that there is no simple rule for determining the edibility of a mushroom; 
-no rule like "leaflets three, let it be'' for Poisonous Oak and Ivy.
+
+This project is available online at https://github.com/prangberg/MushroomClassification
+
+
+#Introduction
+
+The goal of this project is to predict if mushrooms are edible or poisonous - based on their numerous attributes such as cap color ornumber of rings. Since we want to avoid eating a poisonous mushroom, we strive for 100% accuracy.
 
 I downloaded the data from Kaggle
 https://www.kaggle.com/uciml/mushroom-classification
-and saved it as a .csv in the project's folder
+and saved it as a .csv in a local folder.
 
-```{r}
+This dataset includes descriptions of hypothetical samples corresponding to 23 species of gilled mushrooms in the Agaricus and Lepiota Family Mushroom drawn from The Audubon Society Field Guide to North American Mushrooms (1981). 
+Each species is identified as definitely edible, definitely poisonous, or of unknown edibility and not recommended. This latter class was combined with the poisonous one. The Guide clearly states that there is no simple rule for determining the edibility of a mushroom; no rule like "leaflets three, let it be'' for Poisonous Oak and Ivy.
 
-
+#Analysis
+We use the folloring libraries for our analysis:
+```{r libraries, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(caret)
 library(randomForest)
 library(ggplot2)
+```
 
-#Ingest the CSV
+
+
+First, we ingest the CSV
+```{r}
 mushrooms <- read.csv("mushrooms.csv", colClasses = "character") 
-#check if there were any problems during the import - read.csv worked better for me than read_csv, since the later tried to convert 'bruises' and 'gill-attachment' to a logical variable, which cause problems.
-problems(mushrooms)
+```
+Note: The method read.csv worked better for me than read_csv, since the later tried to convert 'bruises' and 'gill-attachment' to a logical variable, which caused problems.
 
+```{r}
 dim(mushrooms)
-#The dataset has 8124 entries with 23 columns. 
+```
+The dataset has 8124 entries with 23 columns.
 
+```{r}
 glimpse(mushrooms)
+```
+The values are single letter. We can find the meaning in the definition on kaggle.com:
+The columns are already labeled, but the single letter abbreviations are not very meaningful.
 
-#The values are single letter. We can find the meaning in the definition on kaggle.com:
-#The columns are already labeled, but the single letter abbreviations are not very meaningful.
+Definition of columns from kaggle
 
-#Definition of columns from kaggle
-# classes: edible=e, poisonous=p
-# cap-shape: bell=b,conical=c,convex=x,flat=f, knobbed=k,sunken=s
-# cap-surface: fibrous=f,grooves=g,scaly=y,smooth=s
-# cap-color: brown=n,buff=b,cinnamon=c,gray=g,green=r,pink=p,purple=u,red=e,white=w,yellow=y
-# bruises: bruises=t,no=f
-# odor: almond=a,anise=l,creosote=c,fishy=y,foul=f,musty=m,none=n,pungent=p,spicy=s
-# gill-attachment: attached=a,descending=d,free=f,notched=n
-# gill-spacing: close=c,crowded=w,distant=d
-# gill-size: broad=b,narrow=n
-# gill-color: black=k,brown=n,buff=b,chocolate=h,gray=g, green=r,orange=o,pink=p,purple=u,red=e,white=w,yellow=y
-# stalk-shape: enlarging=e,tapering=t
-# stalk-root: bulbous=b,club=c,cup=u,equal=e,rhizomorphs=z,rooted=r,missing=?
-# stalk-surface-above-ring: fibrous=f,scaly=y,silky=k,smooth=s
-# stalk-surface-below-ring: fibrous=f,scaly=y,silky=k,smooth=s
-# stalk-color-above-ring: brown=n,buff=b,cinnamon=c,gray=g,orange=o,pink=p,red=e,white=w,yellow=y
-# stalk-color-below-ring: brown=n,buff=b,cinnamon=c,gray=g,orange=o,pink=p,red=e,white=w,yellow=y
-# veil-type: partial=p,universal=u
-# veil-color: brown=n,orange=o,white=w,yellow=y
-# ring-number: none=n,one=o,two=t
-# ring-type: cobwebby=c,evanescent=e,flaring=f,large=l,none=n,pendant=p,sheathing=s,zone=z
-# spore-print-color: black=k,brown=n,buff=b,chocolate=h,green=r,orange=o,purple=u,white=w,yellow=y
-# population: abundant=a,clustered=c,numerous=n,scattered=s,several=v,solitary=y
-# habitat: grasses=g,leaves=l,meadows=m,paths=p,urban=u,waste=w,woods=d
+* classes: edible=e, poisonous=p
+* cap-shape: bell=b,conical=c,convex=x,flat=f, knobbed=k,sunken=s
+* cap-surface: fibrous=f,grooves=g,scaly=y,smooth=s
+* cap-color: brown=n,buff=b,cinnamon=c,gray=g,green=r,pink=p,purple=u,red=e,white=w,yellow=y
+* bruises: bruises=t,no=f
+* odor: almond=a,anise=l,creosote=c,fishy=y,foul=f,musty=m,none=n,pungent=p,spicy=s
+* gill-attachment: attached=a,descending=d,free=f,notched=n
+* gill-spacing: close=c,crowded=w,distant=d
+* gill-size: broad=b,narrow=n
+* gill-color: black=k,brown=n,buff=b,chocolate=h,gray=g,green=r,orange=o,pink=p,purple=u,red=e,white=w,yellow=y
+* stalk-shape: enlarging=e,tapering=t
+* stalk-root: bulbous=b,club=c,cup=u,equal=e,rhizomorphs=z,rooted=r,missing=?
+* stalk-surface-above-ring: fibrous=f,scaly=y,silky=k,smooth=s
+* stalk-surface-below-ring: fibrous=f,scaly=y,silky=k,smooth=s
+* stalk-color-above-ring: brown=n,buff=b,cinnamon=c,gray=g,orange=o,pink=p,red=e,white=w,yellow=y
+* stalk-color-below-ring: brown=n,buff=b,cinnamon=c,gray=g,orange=o,pink=p,red=e,white=w,yellow=y
+* veil-type: partial=p,universal=u
+* veil-color: brown=n,orange=o,white=w,yellow=y
+* ring-number: none=n,one=o,two=t
+* ring-type: cobwebby=c,evanescent=e,flaring=f,large=l,none=n,pendant=p,sheathing=s,zone=z
+* spore-print-color: black=k,brown=n,buff=b,chocolate=h,green=r,orange=o,purple=u,white=w,yellow=y
+* population: abundant=a,clustered=c,numerous=n,scattered=s,several=v,solitary=y
+* habitat: grasses=g,leaves=l,meadows=m,paths=p,urban=u,waste=w,woods=d
 
-#data cleaning
-#Labeling the Columns
+##Data Cleaning
 
-# We'll create human-friendly names for each category.
+Labeling the columns: We'll create human-friendly names for each category.
+First we map the data to a factor:
 
-#Map the data to a factor
+```{r}
 mushrooms <- mushrooms %>% map_df(function(.x) as.factor(.x))
-
 str(mushrooms)
-#Notice that "veil.type" only has one single level, so this variable is fairly useless for any analysis and we can ignore it. In a larger dataset it would make sense to remove it in order to reduce complexity, but in this small dataset I omit this step.
-#Every other variabel has 2-12 different levels.
+```
+Notice that "veil.type" only has one single level, so this variable is fairly useless for any analysis and we can ignore it. In a larger dataset it would make sense to remove it in order to reduce complexity and improve performance, but in this small dataset I omit this step.
+Every other variabel has 2-12 different levels.
 
-#For each variable we define meaningful (and easy to understand) variable values, baszed on the definitions on Kaggle.
+For each variable we define meaningful (and easy to understand) variable values, baszed on the definitions on Kaggle.
+```{r}
 levels(mushrooms$class) <- c("edible", "poisonous")
 levels(mushrooms$cap.shape) <- c("bell", "conical", "flat", "knobbed", "sunken", "convex")
 levels(mushrooms$cap.color) <- c("buff", "cinnamon", "red", "gray", "brown", "pink", "green", "purple", "white", "yellow")
@@ -100,79 +116,113 @@ levels(mushrooms$population) <- c("abundant", "clustered", "numerous", "scattere
 levels(mushrooms$habitat) <- c("wood", "grasses", "leaves", "meadows", "paths", "urban", "waste")
 
 str(mushrooms)
-#data is looking good - ready to explore it
 
-###data exploration and visualization
+```
+The data is looking good - we're ready to explore it
 
-# We can now explore the data:
-# The most important information for the person finding a mushroom is weather it is ebible or poisonous.
+##Data Exploration and Visualization
+The most important information for the person finding a mushroom is weather it is ebible or poisonous.
+```{r echo=FALSE}
 dim(mushrooms)
 plyr::count(mushrooms$class)
 
-#Almost half the mushrooms (48.2%) are poisonous
+```
 
-# We'll use ggplot2 to create some visualizations.
+Almost half the mushrooms (48.2%) are poisonous.
 
-# Checking out the first two attributes: Cap Shape and CapSurface 
+We'll use ggplot2 to create some visualizations of various attributes and how the relate to edibility.
+
+Checking out the first two attributes: 
+
+###Cap Shape and CapSurface 
+
+```{r}
 ggplot(mushrooms, aes(x = cap.shape, y = cap.surface, col = class)) + 
   scale_color_manual(breaks = c("edible", "poisonous"), 
                      values = c("green", "red")) +
   geom_jitter(alpha = 0.7) 
-#We can see a couple of things in this plot:
-#There is a very low (one-digit) number of mushrooms that have cap surfaces with grooves or conical cap shapes. All of those are poisonous
-#Mushrooms with bell shaped caps are mostly edible. Those with flat or convex cap shapes are mostly poisonous.
+```
 
-# Checking out the next attributes: Cap Color and Odor (I skipped bruises).
+We can see a couple of things in this plot:
+There is a very low (one-digit) number of mushrooms that have cap surfaces with grooves or conical cap shapes. All of those are poisonous
+Mushrooms with bell shaped caps are mostly edible. Those with flat or convex cap shapes are mostly poisonous.
 
+Checking out the next attributes: 
+
+###Cap Color and Odor
+```{r}
 ggplot(mushrooms, aes(x = cap.color, y = odor, col = class)) + 
   scale_color_manual(breaks = c("edible", "poisonous"), 
                      values = c("green", "red")) +
   geom_jitter(alpha = 0.7) 
   
-  # you definitely want to avoid any odor that is fishy, spicy, pungent, musty, foul or creosote.
-#Anise and almond seem to be very safe. Mushrooms with no odor are mostly safe, but some are poisonous.
-  
-# Checking out more attributes: Gill Color and Gill Size
 
+```
+
+You definitely want to avoid any odor that is fishy, spicy, pungent, musty, foul or creosote.
+Anise and almond seem to be very safe. Mushrooms with no odor are mostly safe, but some are poisonous.
+
+Checking out more attributes: 
+
+###Gill Color and Gill Size
+```{r}
 ggplot(mushrooms, aes(x = gill.color, y = gill.size, col = class)) + 
   scale_color_manual(breaks = c("edible", "poisonous"), 
                      values = c("green", "red")) +
   geom_jitter(alpha = 0.7) 
 
-#The Gill Colors red and orange are safe. Green is always poisonous.
-#If the Gill size is groad the following colors are safe too: black,brown, orange, purple.
 
-#Looking at the stark color above and below the rind.
+```
 
+The Gill Colors red and orange are safe. Green is always poisonous.
+If the Gill size is groad the following colors are safe too: black,brown, orange, purple.
+
+
+###Stark color above and below the rind
+```{r}
 ggplot(mushrooms, aes(x = stalk.color.above.ring , y = stalk.surface.above.ring, col = class)) + 
   scale_color_manual(breaks = c("edible", "poisonous"), 
                      values = c("green", "red")) +
   geom_jitter(alpha = 0.7) 
+```
 
-# We can see many combinations which are defintelly to avoid (buff/green, brow) and a few that are safe (smooth + red/gray/pink)
+We can see many combinations which are defintelly to avoid (buff/green, brow) and a few that are safe (smooth + red/gray/pink)
 
-#Finally we take a look at population and spore print color.
+Finally we take a look at: 
 
+###Population and spore print color
+```{r}
 ggplot(mushrooms, aes(x = spore.print.color , y = population, col = class)) + 
   scale_color_manual(breaks = c("edible", "poisonous"), 
                      values = c("green", "red")) +
   geom_jitter(alpha = 0.7) 
 
-# Again, we see several combinations which are safe, incl. any mushrooms with a numerous population or buff, orange , purple, or yellow spore prints.
 
+```
+
+Again, we see several combinations which are safe, incl. any mushrooms with a numerous population or buff, orange , purple, or yellow spore prints.
+ 
+To finalize our initial data exploration, let's look at three attributes that seem to play a big role in prediting edibility: 
+
+###Cap Color, Sport Print Color and Odor 
+```{r}
 ggplot(mushrooms, aes(x = mushrooms$cap.color  , y = mushrooms$spore.print.color, col = class)) + 
   scale_color_manual(breaks = c("edible", "poisonous"), 
                      values = c("green", "red")) +
-  geom_jitter(alpha = 0.7) + facet_wrap(mushrooms$odor)
+  geom_jitter(alpha = 0.7) + facet_wrap(mushrooms$odor) +
+  xlab("Cap Color") + 
+  ylab("Spore Print Color") +
+  theme(axis.text.x = element_text(angle = 90))
+```
 
-# There are clearly pattern, so let's try to find a model to predict if a mushroom is edible or not.
-#It looks like we might be able to make a good prediction using a regression model, but we already used that in the previous MovieLens exercise and want to use a 'real' machine learning model this time. 
 
+There are clearly pattern, so let's try to find a model to predict if a mushroom is edible or not.
 
-###modeling approach
+It looks like we might be able to make a good prediction using a regression model, but we already used that in the previous MovieLens exercise (https://github.com/prangberg/harvard-data-science) and want to use a 'real' machine learning model this time. 
 
-#Split the data into training and validation sets:
-
+## Modeling Approach
+Split the data into training and a 10% validation set:
+```{r}
 set.seed(1)
 # Validation set will be 10% 
 test_index <-
@@ -184,65 +234,93 @@ test_index <-
   )
 edx <- mushrooms[-test_index, ]
 validation <- mushrooms[test_index, ]
+```
 
+### Random Forest
+We'll use the Random Forest algorithm
 
-### Random Forest 
-
-
+```{r}
 set.seed(1)
 model_rf <- randomForest(class ~ ., ntree = 30, data = edx)
 plot(model_rf)
+```
 
-#The plot shows that above 15 trees, the error isn’t decreasing anymore and is very close to 0.
+The plot shows that above 15 trees, the error isn’t decreasing anymore and is very close to 0.
 
+We use the model to create a prediction for our training data set.
+```{r}
 edx$predicted <- predict(model_rf ,edx)
 confusionMatrix(data = edx$predicted, reference = edx$class , 
                 positive = "edible")
-# Using this model, there are no errors: This is a perfect prediction of which mushrooms are edible or poisonous.
+```
 
+Using this model, there are no errors for the training set: This is a perfect prediction of which mushrooms are edible or poisonous.
+
+Let's take a quick look at which of the attributes of a mushroom play the most important role in predicting its edibility:
+
+```{r}
 var_imp <-importance(model_rf) %>% data.frame() %>% 
   rownames_to_column(var = "Variable") %>% 
   arrange(desc(MeanDecreaseGini))
 
-var_imp
-
-#Importance of factors
+#Importance of attributes
 ggplot(var_imp, aes(x=reorder(Variable, MeanDecreaseGini), y=MeanDecreaseGini, fill=MeanDecreaseGini)) +
   geom_bar(stat = 'identity') +
   geom_point() +
   coord_flip() +
   xlab("Factors") +
-  ggtitle("Importance of Factors")
+  ggtitle("Importance of Attributes")
+```
 
-#A higher descrease in Gini means that a particular predictor variable plays a greater role in partitioning the data into the defined classes.
-#The plot indicates that Odor is the most predicive variable in determining edibility.
+A higher descrease in Gini means that a particular predictor variable plays a greater role in partitioning the data into the defined classes.
+The plot indicates that **Odor** is the most predicive variable in determining edibility.
 
-#We can confirm the importance of odor when looking at this plot:
+We can confirm the importance of odor when looking at this plot:
 
+```{r}
 ggplot(mushrooms, aes(x = odor, y = class, col = class)) + 
   scale_color_manual(breaks = c("edible", "poisonous"), 
                      values = c("green", "red"))+ geom_point(position='jitter') 
-#Actually any mushroom that does have an odor (i.e. not 'none') can be predicted:
-#Almond or Anise are always safe. Creosote, foul, pungent, spicy or fishy are always poisonous.
-#Only those mushrooms without odor cannot be predicted, even though it seems that most are edible.
+```
 
-#Taking a quick look at the second most important factor, in combination with odor:
+Actually any mushroom that does have an odor (i.e. not 'none') can be predicted:
+Almond or Anise are always safe. Creosote, foul, pungent, spicy or fishy are always poisonous.
+Only those mushrooms without odor cannot be predicted, even though it seems that most are edible.
+
+-> So if there was only *ONE* single attribute you can consider when you find a mushroom, it should be odor.
+
+Taking a quick look at the second most important factor *Sport Print Color*, in combination with odor:
+```{r}
 ggplot(mushrooms, aes(x = spore.print.color, y = odor, col = class)) + 
   scale_color_manual(breaks = c("edible", "poisonous"), 
                      values = c("green", "red")) +
-  geom_jitter(alpha = 0.6) 
-# This plot helps reduce the large uncertainty we had with odorless (odor=none) mushrooms. 
-#We can eat any odorless mushroom exceopt those with green or white spore print color.
-#We could continue this exercise and would probably come up with a very precise regression model, but let's focus on our Random Tree prediction.
+  geom_jitter(alpha = 0.6) +
+  xlab("Sport Print Color")
+```
 
-#Let's apply the model to our validation set and see how well it makes predictions:
+This plot helps reduce the large uncertainty we had with odorless (odor=none) mushrooms. 
+We can eat any odorless mushroom exceopt those with green or white spore print color.
+We could continue this exercise and would probably come up with a very precise regression model, but let's focus on our Random Tree prediction.
+
+###Validation
+
+Let's apply the Random Forest model to our validation set and see how good the predictions are:
+```{r}
 validation$predicted <- predict(model_rf ,validation)
 
 confusionMatrix(data = validation$predicted, reference = validation$class , positive = "edible")
-
-#This is a perfect prediction - Accuracy, Sensitivity and Specificity are 1.00.
-
 ```
+This is a perfect prediction - Accuracy, Sensitivity and Specificity are 1.00.
 
+#Results 
+
+The Model using Random Forests gives a 100% accurate prediction if a mushroom is edible or not - based on its attributes. Above 15 trees, the error isn’t decreasing anymore and is equal to 0.
+
+#Conclusion
+Odor is the most predicive variable in determining edibility. Almond or Anise are always safe. Creosote, foul, pungent, spicy or fishy are always poisonous. So if there was only ONE single attribute you can consider when you find a mushroom, it should be odor.
+
+Using the other attributes in a Random Forest model, we can predict with 100% accuracy, if a mushroom is edible or not.
+
+It would be interesting to apply this model to a larger dataset which containts more than 23 species of gilled mushrooms in the Agaricus and Lepiota Family. This might require a higher number of Random Trees or a better fitted model.
 
 
