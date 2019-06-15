@@ -88,6 +88,11 @@ str(mushrooms)
 
 # We can now explore the data:
 # The most important information for the person finding a mushroom is weather it is ebible or poisonous.
+
+
+plyr::count(mushrooms$class)
+#Almost half the mushrooms are poisonous
+
 # We'll use ggplot2 to create some visualizations.
 library(ggplot2)
 
@@ -138,6 +143,13 @@ ggplot(mushrooms, aes(x = spore.print.color , y = population, col = class)) +
 
 # Again, we see several combinations which are safe, incl. any mushrooms with a numerous population or buff, orange , purple, or yellow spore prints.
 
+ggplot(mushrooms, aes(x = mushrooms$cap.color  , y = mushrooms$spore.print.color, col = class)) + 
+  scale_color_manual(breaks = c("edible", "poisonous"), 
+                     values = c("green", "red")) +
+  geom_jitter(alpha = 0.7) + facet_wrap(mushrooms$odor)
+
+# There are clearly pattern, so let's try to find a model to predict if a mushroom is edible or not.
+
 ###modeling approach
 
 #Split the data into training and validation sets:
@@ -155,9 +167,39 @@ edx <- mushrooms[-test_index, ]
 validation <- mushrooms[test_index, ]
 
 
+### Random Forest with 100 trees
+
+library(randomForest)
+
+set.seed(1)
+model_rf <- randomForest(class ~ ., ntree = 25, data = edx)
+plot(model_rf)
+
+#The plot shows that above 15 trees, the error isn’t decreasing anymore and is very close to 0.
+
+print (model_rf)
+
+# Using this model, there are no errors: This is a perfect prediction of which mushrooms are edible or poisonous.
 
 
+var_imp <-importance(model_rf) %>% data.frame() %>% 
+  rownames_to_column(var = "Variable") %>% 
+  arrange(desc(MeanDecreaseGini))
 
+var_imp
 
+ggplot(var_imp, aes(x=reorder(Variable, MeanDecreaseGini), y=MeanDecreaseGini, fill=MeanDecreaseGini)) +
+  geom_bar(stat = 'identity') +
+  geom_point() +
+  coord_flip()
+
+#The plot indicates that Odor is the most predicive variable in determining edibility.
+
+#We can confirm the importance of odor when looking at this plot:
+ggplot(mushrooms, aes(x = odor, y = class, col = class)) + 
+  scale_color_manual(breaks = c("edible", "poisonous"), 
+                     values = c("green", "red"))+ geom_point(position='jitter') 
+#Actually any mushroom that does have an odor (i.e. not 'none') can be predicted:
+#Almond or Anise are always safe. Creosote, foul, pungent, spicy or fishy are always poisonous.
 
 
