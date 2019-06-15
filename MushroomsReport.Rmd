@@ -1,20 +1,25 @@
 ---
-title: "HarvardX: PH125.9x Professional Certificate in Data Science - Choose Your Own Project"
+title: 'HarvardX: PH125.9x Professional Certificate in Data Science - Choose Your
+  Own Project'
 author: "Stefan Prangenberg"
 date: "6/15/2019"
-output: html_document
+output: 
+  html_document: 
+    theme: spacelab
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This project is available online at https://github.com/prangberg/MushroomClassification
-
-
 #Introduction
 
 The goal of this project is to predict if mushrooms are edible or poisonous - based on their numerous attributes such as cap color ornumber of rings. Since we want to avoid eating a poisonous mushroom, we strive for 100% accuracy.
+
+This project and the source core are available online at https://github.com/prangberg/MushroomClassification
+
+This report is part of the final course of the HarvardX Professional Certificate in Data Science. The goal is to apply machine learning techniques that go beyond standard linear regression.
 
 I downloaded the data from Kaggle
 https://www.kaggle.com/uciml/mushroom-classification

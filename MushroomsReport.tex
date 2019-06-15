@@ -1,0 +1,759 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={HarvardX: PH125.9x Professional Certificate in Data Science - Choose Your Own Project},
+            pdfauthor={Stefan Prangenberg},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{HarvardX: PH125.9x Professional Certificate in Data Science - Choose
+Your Own Project}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Stefan Prangenberg}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{6/15/2019}
+
+
+\begin{document}
+\maketitle
+
+*This project and the source core are available online at
+\url{https://github.com/prangberg/MushroomClassification}
+
+This report is part of the final course in the HarvardX Professional
+Certificate in Data Science applying machine learning techniques that go
+beyond standard linear regression. * \#Introduction
+
+The goal of this project is to predict if mushrooms are edible or
+poisonous - based on their numerous attributes such as cap color
+ornumber of rings. Since we want to avoid eating a poisonous mushroom,
+we strive for 100\% accuracy.
+
+I downloaded the data from Kaggle
+\url{https://www.kaggle.com/uciml/mushroom-classification} and saved it
+as a .csv in a local folder.
+
+This dataset includes descriptions of hypothetical samples corresponding
+to 23 species of gilled mushrooms in the Agaricus and Lepiota Family
+Mushroom drawn from The Audubon Society Field Guide to North American
+Mushrooms (1981). Each species is identified as definitely edible,
+definitely poisonous, or of unknown edibility and not recommended. This
+latter class was combined with the poisonous one. The Guide clearly
+states that there is no simple rule for determining the edibility of a
+mushroom; no rule like ``leaflets three, let it be'' for Poisonous Oak
+and Ivy.
+
+\section{Analysis}\label{analysis}
+
+We use the folloring libraries for our analysis:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(caret)}
+\KeywordTok{library}\NormalTok{(randomForest)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+First, we ingest the CSV
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mushrooms <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"mushrooms.csv"}\NormalTok{, }\DataTypeTok{colClasses =} \StringTok{"character"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+Note: The method read.csv worked better for me than read\_csv, since the
+later tried to convert `bruises' and `gill-attachment' to a logical
+variable, which caused problems.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(mushrooms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8124   23
+\end{verbatim}
+
+The dataset has 8124 entries with 23 columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glimpse}\NormalTok{(mushrooms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Observations: 8,124
+## Variables: 23
+## $ class                    <chr> "p", "e", "e", "p", "e", "e", "e", "e...
+## $ cap.shape                <chr> "x", "x", "b", "x", "x", "x", "b", "b...
+## $ cap.surface              <chr> "s", "s", "s", "y", "s", "y", "s", "y...
+## $ cap.color                <chr> "n", "y", "w", "w", "g", "y", "w", "w...
+## $ bruises                  <chr> "t", "t", "t", "t", "f", "t", "t", "t...
+## $ odor                     <chr> "p", "a", "l", "p", "n", "a", "a", "l...
+## $ gill.attachment          <chr> "f", "f", "f", "f", "f", "f", "f", "f...
+## $ gill.spacing             <chr> "c", "c", "c", "c", "w", "c", "c", "c...
+## $ gill.size                <chr> "n", "b", "b", "n", "b", "b", "b", "b...
+## $ gill.color               <chr> "k", "k", "n", "n", "k", "n", "g", "n...
+## $ stalk.shape              <chr> "e", "e", "e", "e", "t", "e", "e", "e...
+## $ stalk.root               <chr> "e", "c", "c", "e", "e", "c", "c", "c...
+## $ stalk.surface.above.ring <chr> "s", "s", "s", "s", "s", "s", "s", "s...
+## $ stalk.surface.below.ring <chr> "s", "s", "s", "s", "s", "s", "s", "s...
+## $ stalk.color.above.ring   <chr> "w", "w", "w", "w", "w", "w", "w", "w...
+## $ stalk.color.below.ring   <chr> "w", "w", "w", "w", "w", "w", "w", "w...
+## $ veil.type                <chr> "p", "p", "p", "p", "p", "p", "p", "p...
+## $ veil.color               <chr> "w", "w", "w", "w", "w", "w", "w", "w...
+## $ ring.number              <chr> "o", "o", "o", "o", "o", "o", "o", "o...
+## $ ring.type                <chr> "p", "p", "p", "p", "e", "p", "p", "p...
+## $ spore.print.color        <chr> "k", "n", "n", "k", "n", "k", "k", "n...
+## $ population               <chr> "s", "n", "n", "s", "a", "n", "n", "s...
+## $ habitat                  <chr> "u", "g", "m", "u", "g", "g", "m", "m...
+\end{verbatim}
+
+The values are single letter. We can find the meaning in the definition
+on kaggle.com: The columns are already labeled, but the single letter
+abbreviations are not very meaningful.
+
+Definition of columns from kaggle
+
+\begin{itemize}
+\tightlist
+\item
+  classes: edible=e, poisonous=p
+\item
+  cap-shape: bell=b,conical=c,convex=x,flat=f, knobbed=k,sunken=s
+\item
+  cap-surface: fibrous=f,grooves=g,scaly=y,smooth=s
+\item
+  cap-color:
+  brown=n,buff=b,cinnamon=c,gray=g,green=r,pink=p,purple=u,red=e,white=w,yellow=y
+\item
+  bruises: bruises=t,no=f
+\item
+  odor:
+  almond=a,anise=l,creosote=c,fishy=y,foul=f,musty=m,none=n,pungent=p,spicy=s
+\item
+  gill-attachment: attached=a,descending=d,free=f,notched=n
+\item
+  gill-spacing: close=c,crowded=w,distant=d
+\item
+  gill-size: broad=b,narrow=n
+\item
+  gill-color:
+  black=k,brown=n,buff=b,chocolate=h,gray=g,green=r,orange=o,pink=p,purple=u,red=e,white=w,yellow=y
+\item
+  stalk-shape: enlarging=e,tapering=t
+\item
+  stalk-root:
+  bulbous=b,club=c,cup=u,equal=e,rhizomorphs=z,rooted=r,missing=?
+\item
+  stalk-surface-above-ring: fibrous=f,scaly=y,silky=k,smooth=s
+\item
+  stalk-surface-below-ring: fibrous=f,scaly=y,silky=k,smooth=s
+\item
+  stalk-color-above-ring:
+  brown=n,buff=b,cinnamon=c,gray=g,orange=o,pink=p,red=e,white=w,yellow=y
+\item
+  stalk-color-below-ring:
+  brown=n,buff=b,cinnamon=c,gray=g,orange=o,pink=p,red=e,white=w,yellow=y
+\item
+  veil-type: partial=p,universal=u
+\item
+  veil-color: brown=n,orange=o,white=w,yellow=y
+\item
+  ring-number: none=n,one=o,two=t
+\item
+  ring-type:
+  cobwebby=c,evanescent=e,flaring=f,large=l,none=n,pendant=p,sheathing=s,zone=z
+\item
+  spore-print-color:
+  black=k,brown=n,buff=b,chocolate=h,green=r,orange=o,purple=u,white=w,yellow=y
+\item
+  population:
+  abundant=a,clustered=c,numerous=n,scattered=s,several=v,solitary=y
+\item
+  habitat: grasses=g,leaves=l,meadows=m,paths=p,urban=u,waste=w,woods=d
+\end{itemize}
+
+\subsection{Data Cleaning}\label{data-cleaning}
+
+Labeling the columns: We'll create human-friendly names for each
+category. First we map the data to a factor:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mushrooms <-}\StringTok{ }\NormalTok{mushrooms }\OperatorTok{%>%}\StringTok{ }\KeywordTok{map_df}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(.x) }\KeywordTok{as.factor}\NormalTok{(.x))}
+\KeywordTok{str}\NormalTok{(mushrooms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Classes 'tbl_df', 'tbl' and 'data.frame':    8124 obs. of  23 variables:
+##  $ class                   : Factor w/ 2 levels "e","p": 2 1 1 2 1 1 1 1 2 1 ...
+##  $ cap.shape               : Factor w/ 6 levels "b","c","f","k",..: 6 6 1 6 6 6 1 1 6 1 ...
+##  $ cap.surface             : Factor w/ 4 levels "f","g","s","y": 3 3 3 4 3 4 3 4 4 3 ...
+##  $ cap.color               : Factor w/ 10 levels "b","c","e","g",..: 5 10 9 9 4 10 9 9 9 10 ...
+##  $ bruises                 : Factor w/ 2 levels "f","t": 2 2 2 2 1 2 2 2 2 2 ...
+##  $ odor                    : Factor w/ 9 levels "a","c","f","l",..: 7 1 4 7 6 1 1 4 7 1 ...
+##  $ gill.attachment         : Factor w/ 2 levels "a","f": 2 2 2 2 2 2 2 2 2 2 ...
+##  $ gill.spacing            : Factor w/ 2 levels "c","w": 1 1 1 1 2 1 1 1 1 1 ...
+##  $ gill.size               : Factor w/ 2 levels "b","n": 2 1 1 2 1 1 1 1 2 1 ...
+##  $ gill.color              : Factor w/ 12 levels "b","e","g","h",..: 5 5 6 6 5 6 3 6 8 3 ...
+##  $ stalk.shape             : Factor w/ 2 levels "e","t": 1 1 1 1 2 1 1 1 1 1 ...
+##  $ stalk.root              : Factor w/ 5 levels "?","b","c","e",..: 4 3 3 4 4 3 3 3 4 3 ...
+##  $ stalk.surface.above.ring: Factor w/ 4 levels "f","k","s","y": 3 3 3 3 3 3 3 3 3 3 ...
+##  $ stalk.surface.below.ring: Factor w/ 4 levels "f","k","s","y": 3 3 3 3 3 3 3 3 3 3 ...
+##  $ stalk.color.above.ring  : Factor w/ 9 levels "b","c","e","g",..: 8 8 8 8 8 8 8 8 8 8 ...
+##  $ stalk.color.below.ring  : Factor w/ 9 levels "b","c","e","g",..: 8 8 8 8 8 8 8 8 8 8 ...
+##  $ veil.type               : Factor w/ 1 level "p": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ veil.color              : Factor w/ 4 levels "n","o","w","y": 3 3 3 3 3 3 3 3 3 3 ...
+##  $ ring.number             : Factor w/ 3 levels "n","o","t": 2 2 2 2 2 2 2 2 2 2 ...
+##  $ ring.type               : Factor w/ 5 levels "e","f","l","n",..: 5 5 5 5 1 5 5 5 5 5 ...
+##  $ spore.print.color       : Factor w/ 9 levels "b","h","k","n",..: 3 4 4 3 4 3 3 4 3 3 ...
+##  $ population              : Factor w/ 6 levels "a","c","n","s",..: 4 3 3 4 1 3 3 4 5 4 ...
+##  $ habitat                 : Factor w/ 7 levels "d","g","l","m",..: 6 2 4 6 2 2 4 4 2 4 ...
+\end{verbatim}
+
+Notice that ``veil.type'' only has one single level, so this variable is
+fairly useless for any analysis and we can ignore it. In a larger
+dataset it would make sense to remove it in order to reduce complexity
+and improve performance, but in this small dataset I omit this step.
+Every other variabel has 2-12 different levels.
+
+For each variable we define meaningful (and easy to understand) variable
+values, baszed on the definitions on Kaggle.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{class) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{cap.shape) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"bell"}\NormalTok{, }\StringTok{"conical"}\NormalTok{, }\StringTok{"flat"}\NormalTok{, }\StringTok{"knobbed"}\NormalTok{, }\StringTok{"sunken"}\NormalTok{, }\StringTok{"convex"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{cap.color) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"buff"}\NormalTok{, }\StringTok{"cinnamon"}\NormalTok{, }\StringTok{"red"}\NormalTok{, }\StringTok{"gray"}\NormalTok{, }\StringTok{"brown"}\NormalTok{, }\StringTok{"pink"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"white"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{cap.surface) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"fibrous"}\NormalTok{, }\StringTok{"grooves"}\NormalTok{, }\StringTok{"scaly"}\NormalTok{, }\StringTok{"smooth"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{bruises) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"no"}\NormalTok{, }\StringTok{"yes"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{odor) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"almond"}\NormalTok{, }\StringTok{"creosote"}\NormalTok{, }\StringTok{"foul"}\NormalTok{, }\StringTok{"anise"}\NormalTok{, }\StringTok{"musty"}\NormalTok{, }\StringTok{"none"}\NormalTok{, }\StringTok{"pungent"}\NormalTok{, }\StringTok{"spicy"}\NormalTok{, }\StringTok{"fishy"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{gill.attachment) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"attached"}\NormalTok{, }\StringTok{"free"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{gill.spacing) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"close"}\NormalTok{, }\StringTok{"crowded"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{gill.size) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"broad"}\NormalTok{, }\StringTok{"narrow"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{gill.color) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"buff"}\NormalTok{, }\StringTok{"red"}\NormalTok{, }\StringTok{"gray"}\NormalTok{, }\StringTok{"chocolate"}\NormalTok{, }\StringTok{"black"}\NormalTok{, }\StringTok{"brown"}\NormalTok{, }\StringTok{"orange"}\NormalTok{, }\StringTok{"pink"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"white"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{stalk.shape) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"enlarging"}\NormalTok{, }\StringTok{"tapering"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{stalk.root) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"missing"}\NormalTok{, }\StringTok{"bulbous"}\NormalTok{, }\StringTok{"club"}\NormalTok{, }\StringTok{"equal"}\NormalTok{, }\StringTok{"rooted"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{stalk.surface.above.ring) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"fibrous"}\NormalTok{, }\StringTok{"silky"}\NormalTok{, }\StringTok{"smooth"}\NormalTok{, }\StringTok{"scaly"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{stalk.surface.below.ring) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"fibrous"}\NormalTok{, }\StringTok{"silky"}\NormalTok{, }\StringTok{"smooth"}\NormalTok{, }\StringTok{"scaly"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{stalk.color.above.ring) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"buff"}\NormalTok{, }\StringTok{"cinnamon"}\NormalTok{, }\StringTok{"red"}\NormalTok{, }\StringTok{"gray"}\NormalTok{, }\StringTok{"brown"}\NormalTok{, }\StringTok{"pink"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"white"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{stalk.color.below.ring) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"buff"}\NormalTok{, }\StringTok{"cinnamon"}\NormalTok{, }\StringTok{"red"}\NormalTok{, }\StringTok{"gray"}\NormalTok{, }\StringTok{"brown"}\NormalTok{, }\StringTok{"pink"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"white"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{veil.type) <-}\StringTok{ "partial"}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{veil.color) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"brown"}\NormalTok{, }\StringTok{"orange"}\NormalTok{, }\StringTok{"white"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{ring.number) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"none"}\NormalTok{, }\StringTok{"one"}\NormalTok{, }\StringTok{"two"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{ring.type) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"evanescent"}\NormalTok{, }\StringTok{"flaring"}\NormalTok{, }\StringTok{"large"}\NormalTok{, }\StringTok{"none"}\NormalTok{, }\StringTok{"pendant"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{spore.print.color) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"buff"}\NormalTok{, }\StringTok{"chocolate"}\NormalTok{, }\StringTok{"black"}\NormalTok{, }\StringTok{"brown"}\NormalTok{, }\StringTok{"orange"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"purple"}\NormalTok{, }\StringTok{"white"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{population) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"abundant"}\NormalTok{, }\StringTok{"clustered"}\NormalTok{, }\StringTok{"numerous"}\NormalTok{, }\StringTok{"scattered"}\NormalTok{, }\StringTok{"several"}\NormalTok{, }\StringTok{"solitary"}\NormalTok{)}
+\KeywordTok{levels}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{habitat) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"wood"}\NormalTok{, }\StringTok{"grasses"}\NormalTok{, }\StringTok{"leaves"}\NormalTok{, }\StringTok{"meadows"}\NormalTok{, }\StringTok{"paths"}\NormalTok{, }\StringTok{"urban"}\NormalTok{, }\StringTok{"waste"}\NormalTok{)}
+
+\KeywordTok{str}\NormalTok{(mushrooms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Classes 'tbl_df', 'tbl' and 'data.frame':    8124 obs. of  23 variables:
+##  $ class                   : Factor w/ 2 levels "edible","poisonous": 2 1 1 2 1 1 1 1 2 1 ...
+##  $ cap.shape               : Factor w/ 6 levels "bell","conical",..: 6 6 1 6 6 6 1 1 6 1 ...
+##  $ cap.surface             : Factor w/ 4 levels "fibrous","grooves",..: 3 3 3 4 3 4 3 4 4 3 ...
+##  $ cap.color               : Factor w/ 10 levels "buff","cinnamon",..: 5 10 9 9 4 10 9 9 9 10 ...
+##  $ bruises                 : Factor w/ 2 levels "no","yes": 2 2 2 2 1 2 2 2 2 2 ...
+##  $ odor                    : Factor w/ 9 levels "almond","creosote",..: 7 1 4 7 6 1 1 4 7 1 ...
+##  $ gill.attachment         : Factor w/ 2 levels "attached","free": 2 2 2 2 2 2 2 2 2 2 ...
+##  $ gill.spacing            : Factor w/ 2 levels "close","crowded": 1 1 1 1 2 1 1 1 1 1 ...
+##  $ gill.size               : Factor w/ 2 levels "broad","narrow": 2 1 1 2 1 1 1 1 2 1 ...
+##  $ gill.color              : Factor w/ 12 levels "buff","red","gray",..: 5 5 6 6 5 6 3 6 8 3 ...
+##  $ stalk.shape             : Factor w/ 2 levels "enlarging","tapering": 1 1 1 1 2 1 1 1 1 1 ...
+##  $ stalk.root              : Factor w/ 5 levels "missing","bulbous",..: 4 3 3 4 4 3 3 3 4 3 ...
+##  $ stalk.surface.above.ring: Factor w/ 4 levels "fibrous","silky",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ stalk.surface.below.ring: Factor w/ 4 levels "fibrous","silky",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ stalk.color.above.ring  : Factor w/ 10 levels "buff","cinnamon",..: 8 8 8 8 8 8 8 8 8 8 ...
+##  $ stalk.color.below.ring  : Factor w/ 10 levels "buff","cinnamon",..: 8 8 8 8 8 8 8 8 8 8 ...
+##  $ veil.type               : Factor w/ 1 level "partial": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ veil.color              : Factor w/ 4 levels "brown","orange",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ ring.number             : Factor w/ 3 levels "none","one","two": 2 2 2 2 2 2 2 2 2 2 ...
+##  $ ring.type               : Factor w/ 5 levels "evanescent","flaring",..: 5 5 5 5 1 5 5 5 5 5 ...
+##  $ spore.print.color       : Factor w/ 9 levels "buff","chocolate",..: 3 4 4 3 4 3 3 4 3 3 ...
+##  $ population              : Factor w/ 6 levels "abundant","clustered",..: 4 3 3 4 1 3 3 4 5 4 ...
+##  $ habitat                 : Factor w/ 7 levels "wood","grasses",..: 6 2 4 6 2 2 4 4 2 4 ...
+\end{verbatim}
+
+The data is looking good - we're ready to explore it
+
+\subsection{Data Exploration and
+Visualization}\label{data-exploration-and-visualization}
+
+The most important information for the person finding a mushroom is
+weather it is ebible or poisonous.
+
+\begin{verbatim}
+## [1] 8124   23
+\end{verbatim}
+
+\begin{verbatim}
+##           x freq
+## 1    edible 4208
+## 2 poisonous 3916
+\end{verbatim}
+
+Almost half the mushrooms (48.2\%) are poisonous.
+
+We'll use ggplot2 to create some visualizations of various attributes
+and how the relate to edibility.
+
+Checking out the first two attributes:
+
+\subsubsection{Cap Shape and CapSurface}\label{cap-shape-and-capsurface}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mushrooms, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cap.shape, }\DataTypeTok{y =}\NormalTok{ cap.surface, }\DataTypeTok{col =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+We can see a couple of things in this plot: There is a very low
+(one-digit) number of mushrooms that have cap surfaces with grooves or
+conical cap shapes. All of those are poisonous Mushrooms with bell
+shaped caps are mostly edible. Those with flat or convex cap shapes are
+mostly poisonous.
+
+Checking out the next attributes:
+
+\subsubsection{Cap Color and Odor}\label{cap-color-and-odor}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mushrooms, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cap.color, }\DataTypeTok{y =}\NormalTok{ odor, }\DataTypeTok{col =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+You definitely want to avoid any odor that is fishy, spicy, pungent,
+musty, foul or creosote. Anise and almond seem to be very safe.
+Mushrooms with no odor are mostly safe, but some are poisonous.
+
+Checking out more attributes:
+
+\subsubsection{Gill Color and Gill Size}\label{gill-color-and-gill-size}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mushrooms, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ gill.color, }\DataTypeTok{y =}\NormalTok{ gill.size, }\DataTypeTok{col =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+The Gill Colors red and orange are safe. Green is always poisonous. If
+the Gill size is groad the following colors are safe too: black,brown,
+orange, purple.
+
+\subsubsection{Stark color above and below the
+rind}\label{stark-color-above-and-below-the-rind}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mushrooms, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ stalk.color.above.ring , }\DataTypeTok{y =}\NormalTok{ stalk.surface.above.ring, }\DataTypeTok{col =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+We can see many combinations which are defintelly to avoid (buff/green,
+brow) and a few that are safe (smooth + red/gray/pink)
+
+Finally we take a look at:
+
+\subsubsection{Population and spore print
+color}\label{population-and-spore-print-color}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mushrooms, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ spore.print.color , }\DataTypeTok{y =}\NormalTok{ population, }\DataTypeTok{col =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+Again, we see several combinations which are safe, incl. any mushrooms
+with a numerous population or buff, orange , purple, or yellow spore
+prints.
+
+To finalize our initial data exploration, let's look at three attributes
+that seem to play a big role in prediting edibility:
+
+\subsubsection{Cap Color, Sport Print Color and
+Odor}\label{cap-color-sport-print-color-and-odor}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mushrooms, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ mushrooms}\OperatorTok{$}\NormalTok{cap.color  , }\DataTypeTok{y =}\NormalTok{ mushrooms}\OperatorTok{$}\NormalTok{spore.print.color, }\DataTypeTok{col =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{(mushrooms}\OperatorTok{$}\NormalTok{odor) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Cap Color"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Spore Print Color"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+There are clearly pattern, so let's try to find a model to predict if a
+mushroom is edible or not.
+
+It looks like we might be able to make a good prediction using a
+regression model, but we already used that in the previous MovieLens
+exercise (\url{https://github.com/prangberg/harvard-data-science}) and
+want to use a `real' machine learning model this time.
+
+\subsection{Modeling Approach}\label{modeling-approach}
+
+Split the data into training and a 10\% validation set:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\CommentTok{# Validation set will be 10% }
+\NormalTok{test_index <-}
+\StringTok{  }\KeywordTok{createDataPartition}\NormalTok{(}
+    \DataTypeTok{y =}\NormalTok{ mushrooms}\OperatorTok{$}\NormalTok{class,}
+    \DataTypeTok{times =} \DecValTok{1}\NormalTok{,}
+    \DataTypeTok{p =} \FloatTok{0.1}\NormalTok{,}
+    \DataTypeTok{list =} \OtherTok{FALSE}
+\NormalTok{  )}
+\NormalTok{edx <-}\StringTok{ }\NormalTok{mushrooms[}\OperatorTok{-}\NormalTok{test_index, ]}
+\NormalTok{validation <-}\StringTok{ }\NormalTok{mushrooms[test_index, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Random Forest}\label{random-forest}
+
+We'll use the Random Forest algorithm
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{model_rf <-}\StringTok{ }\KeywordTok{randomForest}\NormalTok{(class }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{ntree =} \DecValTok{30}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ edx)}
+\KeywordTok{plot}\NormalTok{(model_rf)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+The plot shows that above 15 trees, the error isn't decreasing anymore
+and is very close to 0.
+
+We use the model to create a prediction for our training data set.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edx}\OperatorTok{$}\NormalTok{predicted <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(model_rf ,edx)}
+\KeywordTok{confusionMatrix}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ edx}\OperatorTok{$}\NormalTok{predicted, }\DataTypeTok{reference =}\NormalTok{ edx}\OperatorTok{$}\NormalTok{class , }
+                \DataTypeTok{positive =} \StringTok{"edible"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##            Reference
+## Prediction  edible poisonous
+##   edible      3787         0
+##   poisonous      0      3524
+##                                      
+##                Accuracy : 1          
+##                  95% CI : (0.9995, 1)
+##     No Information Rate : 0.518      
+##     P-Value [Acc > NIR] : < 2.2e-16  
+##                                      
+##                   Kappa : 1          
+##  Mcnemar's Test P-Value : NA         
+##                                      
+##             Sensitivity : 1.000      
+##             Specificity : 1.000      
+##          Pos Pred Value : 1.000      
+##          Neg Pred Value : 1.000      
+##              Prevalence : 0.518      
+##          Detection Rate : 0.518      
+##    Detection Prevalence : 0.518      
+##       Balanced Accuracy : 1.000      
+##                                      
+##        'Positive' Class : edible     
+## 
+\end{verbatim}
+
+Using this model, there are no errors for the training set: This is a
+perfect prediction of which mushrooms are edible or poisonous.
+
+Let's take a quick look at which of the attributes of a mushroom play
+the most important role in predicting its edibility:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var_imp <-}\KeywordTok{importance}\NormalTok{(model_rf) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{data.frame}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{rownames_to_column}\NormalTok{(}\DataTypeTok{var =} \StringTok{"Variable"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(MeanDecreaseGini))}
+
+\CommentTok{#Importance of attributes}
+\KeywordTok{ggplot}\NormalTok{(var_imp, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{reorder}\NormalTok{(Variable, MeanDecreaseGini), }\DataTypeTok{y=}\NormalTok{MeanDecreaseGini, }\DataTypeTok{fill=}\NormalTok{MeanDecreaseGini)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat =} \StringTok{'identity'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Factors"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Importance of Attributes"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+A higher descrease in Gini means that a particular predictor variable
+plays a greater role in partitioning the data into the defined classes.
+The plot indicates that \textbf{Odor} is the most predicive variable in
+determining edibility.
+
+We can confirm the importance of odor when looking at this plot:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mushrooms, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ odor, }\DataTypeTok{y =}\NormalTok{ class, }\DataTypeTok{col =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{))}\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{position=}\StringTok{'jitter'}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+Actually any mushroom that does have an odor (i.e.~not `none') can be
+predicted: Almond or Anise are always safe. Creosote, foul, pungent,
+spicy or fishy are always poisonous. Only those mushrooms without odor
+cannot be predicted, even though it seems that most are edible.
+
+-\textgreater{} So if there was only \emph{ONE} single attribute you can
+consider when you find a mushroom, it should be odor.
+
+Taking a quick look at the second most important factor \emph{Sport
+Print Color}, in combination with odor:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mushrooms, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ spore.print.color, }\DataTypeTok{y =}\NormalTok{ odor, }\DataTypeTok{col =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\StringTok{"edible"}\NormalTok{, }\StringTok{"poisonous"}\NormalTok{), }
+                     \DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }\StringTok{"red"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Sport Print Color"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MushroomsReport_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+This plot helps reduce the large uncertainty we had with odorless
+(odor=none) mushrooms. We can eat any odorless mushroom exceopt those
+with green or white spore print color. We could continue this exercise
+and would probably come up with a very precise regression model, but
+let's focus on our Random Tree prediction.
+
+\subsubsection{Validation}\label{validation}
+
+Let's apply the Random Forest model to our validation set and see how
+good the predictions are:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{validation}\OperatorTok{$}\NormalTok{predicted <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(model_rf ,validation)}
+
+\KeywordTok{confusionMatrix}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ validation}\OperatorTok{$}\NormalTok{predicted, }\DataTypeTok{reference =}\NormalTok{ validation}\OperatorTok{$}\NormalTok{class , }\DataTypeTok{positive =} \StringTok{"edible"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##            Reference
+## Prediction  edible poisonous
+##   edible       421         0
+##   poisonous      0       392
+##                                      
+##                Accuracy : 1          
+##                  95% CI : (0.9955, 1)
+##     No Information Rate : 0.5178     
+##     P-Value [Acc > NIR] : < 2.2e-16  
+##                                      
+##                   Kappa : 1          
+##  Mcnemar's Test P-Value : NA         
+##                                      
+##             Sensitivity : 1.0000     
+##             Specificity : 1.0000     
+##          Pos Pred Value : 1.0000     
+##          Neg Pred Value : 1.0000     
+##              Prevalence : 0.5178     
+##          Detection Rate : 0.5178     
+##    Detection Prevalence : 0.5178     
+##       Balanced Accuracy : 1.0000     
+##                                      
+##        'Positive' Class : edible     
+## 
+\end{verbatim}
+
+This is a perfect prediction - Accuracy, Sensitivity and Specificity are
+1.00.
+
+\section{Results}\label{results}
+
+The Model using Random Forests gives a 100\% accurate prediction if a
+mushroom is edible or not - based on its attributes. Above 15 trees, the
+error isn't decreasing anymore and is equal to 0.
+
+\section{Conclusion}\label{conclusion}
+
+Odor is the most predicive variable in determining edibility. Almond or
+Anise are always safe. Creosote, foul, pungent, spicy or fishy are
+always poisonous. So if there was only ONE single attribute you can
+consider when you find a mushroom, it should be odor.
+
+Using the other attributes in a Random Forest model, we can predict with
+100\% accuracy, if a mushroom is edible or not.
+
+It would be interesting to apply this model to a larger dataset which
+containts more than 23 species of gilled mushrooms in the Agaricus and
+Lepiota Family. This might require a higher number of Random Trees or a
+better fitted model.
+
+
+\end{document}
